@@ -1,0 +1,24 @@
+{
+    "name": "phpreel/static",
+    "description": "Laravel package that converts your application into a static HTML website.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paul Balan",
+            "email": "paulbalan@phpreel.org"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Phpreel\\Static": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+            	"Phpreel\\Static\\StaticServiceProvider"
+            ]
+        }
+    },
+}
