@@ -24,6 +24,13 @@ class GenerateStatic extends Command
     protected $description = 'Generates a static version of your Laravel application.';
 
     /**
+     * The starting url.
+     *
+     * @var string
+     */
+    protected $currentUrl;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -43,12 +50,12 @@ class GenerateStatic extends Command
         $this->info('In order to work, phpReel Static has to connect to a server running your application. You must provide a host and an available port for it.');
         $host = $this->ask('Host', '127.0.0.1');
         $port = $this->ask('Port', '8000');
-        $url = "http://$host:$port/";
+        $this->currentUrl = "http://$host:$port/";
 
 
         //Test if the host is up
         $dom = new \DOMDocument();
-        @$dom->loadHTMLFile($url);
+        @$dom->loadHTMLFile($this->currentUrl);
         
         if($dom->saveHTML() == "\n") {
             $this->error("phpReel Static has failed to connect to the host. Please make sure the host you specified is running.");
@@ -58,7 +65,7 @@ class GenerateStatic extends Command
             $this->info("Your static website will be generated shortly...");
         }
 
-        $this->crawlPage($url);
+        $this->crawlPage($this->currentUrl);
 
         $this->newLine();
         $this->info("Your static website has been fully generated. You can find it in the static folder situated in the root of your app.");
@@ -76,7 +83,7 @@ class GenerateStatic extends Command
             $currentUrl = $hrefUrl->getScheme() . "://" . $hrefUrl->getHost() . ":" . $hrefUrl->getPort();
 
             //If css is an external file
-            if($href != '' && url()->current() == $currentUrl)
+            if($href != '' && $this->currentUrl == $currentUrl)
             {
                 $path = "";
 
@@ -159,9 +166,9 @@ class GenerateStatic extends Command
         {
             $href = $aTag->getAttribute('href');
             $hrefUrl = Url::fromString($href);
-            $currentUrl = $hrefUrl->getScheme() . "://" . $hrefUrl->getHost() . ":" . $hrefUrl->getPort();
-
-            if(url()->current() == $currentUrl)
+            $currentUrl = $hrefUrl->getScheme() . "://" . $hrefUrl->getHost() . ":" . $hrefUrl->getPort() . "/";
+            
+            if($this->currentUrl == $currentUrl)
             {
                 //Create path to the local html files
                 $path = self::generateHtmlFileLocation($url, substr($hrefUrl->getPath(), 1));
@@ -185,6 +192,6 @@ class GenerateStatic extends Command
 
         File::put("static" . $localPath->getPath() . "index.html", $dom->saveHTML());
 
-        $this->info("Generated file: " . "static" . $localPath->getPath() . "/index.html");
+        $this->info("Generated file: " . "static" . $localPath->getPath() . "index.html");
     }
 }
