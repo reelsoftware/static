@@ -1,6 +1,8 @@
 <p align="center"><a href="https://phpreel.org/" target="_blank"><img src="https://developer.phpreel.org/img/logo.png" width="250"></a></p>
 
 # phpReel Static Laravel Package
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/url.svg?style=flat-square)](https://packagist.org/packages/phpreel/static)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/url.svg?style=flat-square)](https://packagist.org/packages/phpreel/static)
 [phpReel](https://phpreel.org/) Static is a simple Laravel Package created and used by [phpReel](https://github.com/phpreel/phpreel) that converts your Laravel application to a static HTML website.
 
 You only have one artisan command `php artisan generate:static` which will generate your static website. Once you run this command you will find your static website in a directory called `static`, right at the root of your Laravel application.
