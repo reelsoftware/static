@@ -17,7 +17,7 @@
     "extra": {
         "laravel": {
             "providers": [
-            	"Phpreel\\StaticPHP\\StaticServiceProvider\\"
+            	"Phpreel\\StaticPHP\\StaticServiceProvider"
             ]
         }
     }
