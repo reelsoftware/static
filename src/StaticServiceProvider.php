@@ -3,7 +3,7 @@
 namespace Phpreel\StaticPHP;
 
 use Illuminate\Support\ServiceProvider;
-use StaticPHP\Console\Commands\GenerateStatic;
+use Phpreel\StaticPHP\Console\Commands\GenerateStatic;
 
 class StaticServiceProvider extends ServiceProvider
 {
