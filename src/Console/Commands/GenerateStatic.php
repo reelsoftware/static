@@ -63,6 +63,19 @@ class GenerateStatic extends Command
         }
         else {
             $this->info("Your static website will be generated shortly...");
+
+            //Check if there is a .gitignore file set
+            if(file_exists(base_path('static/.gitignore')))
+                $gitignore = file_get_contents(base_path('static/.gitignore'));
+            else
+                $gitignore = null;
+            
+            //Remove everything from the static folder
+            File::cleanDirectory(base_path('static'));
+            
+            //Add the .gitignore file back again
+            if($gitignore != null)
+                file_put_contents(base_path('static/.gitignore'), $gitignore);
         }
 
         $this->crawlPage($this->currentUrl);
