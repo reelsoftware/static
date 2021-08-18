@@ -173,7 +173,12 @@ class GenerateStatic extends Command
                 //Create path to the local html files
                 $path = self::generateHtmlFileLocation($url, substr($hrefUrl->getPath(), 1));
 
-                $aTag->setAttribute('href', $path . '/index.html');
+                //If the link points to the same page then redirect to index.html
+                if($href . "/" != $url)
+                    $aTag->setAttribute('href', $path . '/index.html');
+                else
+                    $aTag->setAttribute('href', 'index.html');
+
                 $dom->saveHTML();
 
                 if(!isset($seen[$href . '/']))
