@@ -159,16 +159,20 @@ class GenerateStatic extends Command
         {
             $href = $aTag->getAttribute('href');
             $hrefUrl = Url::fromString($href);
+            $currentUrl = $hrefUrl->getScheme() . "://" . $hrefUrl->getHost() . ":" . $hrefUrl->getPort();
 
-            //Create path to the local html files
-            $path = self::generateHtmlFileLocation($url, substr($hrefUrl->getPath(), 1));
-
-            $aTag->setAttribute('href', $path . '/index.html');
-            $dom->saveHTML();
-
-            if(!isset($seen[$href . '/']))
+            if(url()->current() == $currentUrl)
             {
-                $this->crawlPage($href . "/");
+                //Create path to the local html files
+                $path = self::generateHtmlFileLocation($url, substr($hrefUrl->getPath(), 1));
+
+                $aTag->setAttribute('href', $path . '/index.html');
+                $dom->saveHTML();
+
+                if(!isset($seen[$href . '/']))
+                {
+                    $this->crawlPage($href . "/");
+                }
             }
         }
 
@@ -179,8 +183,8 @@ class GenerateStatic extends Command
             File::makeDirectory("static" . $localPath->getPath(), $mode = 0777, true);
         }
 
-        File::put("static" . $localPath->getPath() . "/index.html", $dom->saveHTML());
-        
+        File::put("static" . $localPath->getPath() . "index.html", $dom->saveHTML());
+
         $this->info("Generated file: " . "static" . $localPath->getPath() . "/index.html");
     }
 }
