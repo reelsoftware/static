@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpreel/Static;
+namespace Phpreel\StaticPHP;
 
 use Illuminate\Support\ServiceProvider;
 

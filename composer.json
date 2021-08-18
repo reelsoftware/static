@@ -11,13 +11,13 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Phpreel\\Static": "src/"
+            "Phpreel\\StaticPHP\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-            	"Phpreel\\Static\\StaticServiceProvider"
+            	"Phpreel\\StaticPHP\\StaticServiceProvider\\"
             ]
         }
     }
